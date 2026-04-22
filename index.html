@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Felipe Dias | Dev Back-End Java</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0d0d0d;--bg2:#111111;--sidebar:#0a0a0a;--cyan:#00e5c8;--pink:#ff2d78;--white:#f0f0f0;--muted:#555;--border:#1e1e1e}
+  body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif;min-height:100vh;display:flex;overflow-x:hidden}
+  .sidebar{width:200px;min-width:200px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:10}
+  .logo-box{padding:28px 20px 20px;border-bottom:1px solid var(--border);text-align:center}
+  .logo-letter{font-size:52px;font-weight:700;font-family:'Space Grotesk',sans-serif;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .logo-name{font-size:13px;font-weight:600;letter-spacing:2px;margin-top:4px;color:var(--white)}
+  .logo-title{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+  nav{flex:1;padding:24px 0}
+  nav a{display:block;padding:12px 24px;color:#888;font-size:13px;letter-spacing:1.5px;text-decoration:none;transition:all .2s;font-weight:500;cursor:pointer;border-left:2px solid transparent}
+  nav a:hover,nav a.active{color:var(--white);border-left-color:var(--cyan)}
+  .social-bar{padding:16px 20px;display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--border)}
+  .social-link{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;text-decoration:none;letter-spacing:1px;transition:color .2s;font-family:'JetBrains Mono',monospace}
+  .social-link:hover{color:var(--cyan)}
+  .social-icon{width:14px;height:14px;flex-shrink:0}
+  main{flex:1;overflow-y:auto;scroll-behavior:smooth}
+  section{min-height:100vh;padding:60px 80px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--border);position:relative}
+  .code-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:#333;margin-bottom:8px}
+  #hero{position:relative;overflow:hidden}
+  .hero-greeting{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);margin-bottom:8px}
+  .hero-name{font-size:clamp(40px,6vw,72px);font-weight:700;line-height:1.05;margin-bottom:0}
+  .hero-name span.accent-c{color:var(--cyan)}
+  .hero-name span.accent-p{color:var(--pink)}
+  .hero-sub{font-family:'JetBrains Mono',monospace;font-size:13px;color:#666;margin:16px 0 32px;letter-spacing:2px}
+  .btn-contact{display:inline-block;border:1px solid var(--cyan);color:var(--cyan);padding:12px 32px;font-size:13px;letter-spacing:2px;text-decoration:none;transition:all .2s;font-family:'JetBrains Mono',monospace;cursor:pointer;background:transparent}
+  .btn-contact:hover{background:var(--cyan);color:#000}
+  .attractor{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:500px;height:500px;pointer-events:none}
+  .sec-title{font-size:11px;letter-spacing:3px;color:var(--cyan);margin-bottom:40px;font-family:'JetBrains Mono',monospace;text-transform:uppercase}
+  .about-text{font-size:15px;line-height:1.9;color:#aaa;max-width:680px}
+  .about-text strong{color:var(--white)}
+  #skills .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px;max-width:700px}
+  .skill-card{background:var(--bg2);border:1px solid var(--border);padding:16px;transition:border-color .2s}
+  .skill-card:hover{border-color:var(--cyan)}
+  .skill-name{font-size:13px;font-weight:600;margin-bottom:8px}
+  .skill-bar-bg{height:2px;background:#1e1e1e;margin-top:6px}
+  .skill-bar{height:2px;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .8s}
+  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px}
+  .project-card{background:var(--bg2);border:1px solid var(--border);padding:24px;transition:border-color .2s;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--cyan),var(--pink))}
+  .project-card:hover{border-color:#333}
+  .project-name{font-size:15px;font-weight:700;margin-bottom:8px}
+  .project-desc{font-size:12px;color:#777;line-height:1.7;margin-bottom:14px}
+  .tech-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;border:1px solid var(--border);padding:3px 8px;color:var(--cyan)}
+  .exp-item{display:flex;gap:32px;margin-bottom:36px;max-width:700px}
+  .exp-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:110px;padding-top:2px;letter-spacing:1px}
+  .exp-role{font-size:15px;font-weight:600;margin-bottom:4px}
+  .exp-company{font-size:12px;color:var(--cyan);margin-bottom:8px;letter-spacing:1px}
+  .exp-bullets{list-style:none}
+  .exp-bullets li{font-size:12px;color:#777;line-height:1.8;padding-left:12px;position:relative}
+  .exp-bullets li::before{content:'›';position:absolute;left:0;color:var(--pink)}
+  #contact{text-align:center;align-items:center}
+  .contact-big{font-size:clamp(32px,5vw,56px);font-weight:700;margin-bottom:12px}
+  .contact-sub{font-size:14px;color:var(--muted);margin-bottom:40px;font-family:'JetBrains Mono',monospace;letter-spacing:2px}
+  .contact-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .contact-link{border:1px solid var(--border);padding:12px 20px;font-size:11px;letter-spacing:2px;color:#888;text-decoration:none;font-family:'JetBrains Mono',monospace;transition:all .2s;display:flex;align-items:center;gap:8px}
+  .contact-link:hover{border-color:var(--pink);color:var(--pink)}
+  .scroll-hint{position:absolute;bottom:32px;right:60px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#333;writing-mode:vertical-rl;display:flex;align-items:center;gap:8px}
+  .scroll-arrow{animation:scrollBounce 1.5s infinite}
+  @keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @media(max-width:700px){
+    .sidebar{width:140px;min-width:140px}
+    section{padding:40px 28px}
+    .projects-grid{grid-template-columns:1fr}
+    .attractor{width:260px;height:260px;right:-60px}
+    .hero-name{font-size:36px}
+  }
+</style>
+
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-box">
+    <div class="logo-letter">F</div>
+    <div class="logo-name">FELIPE</div>
+    <div class="logo-title">Back-End Dev</div>
+  </div>
+  <nav>
+    <a href="#hero" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">My Skills</a>
+    <a href="#projects">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="social-bar">
+    <a class="social-link" href="https://github.com/FelipeBatista9075" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a class="social-link" href="https://www.linkedin.com/in/felipe-batista-francisco-dias-2491602a5/" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a class="social-link" href="https://www.twitch.tv/feelpsziin" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+      Twitch
+    </a>
+    <a class="social-link" href="https://www.instagram.com/felipebatista_90" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      Instagram
+    </a>
+  </div>
+</aside>
+
+<main id="mainContent">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="code-tag">&lt;h1&gt;</div>
+    <div class="hero-greeting">// Olá, mundo!</div>
+    <h1 class="hero-name">
+      Hi,<br>
+      I'm <span class="accent-c">F</span>elipe,<br>
+      <span style="color:var(--white)">back-end</span> <span class="accent-p">dev</span>
+    </h1>
+    <div class="code-tag" style="margin-top:8px">&lt;/h1&gt;</div>
+    <div class="hero-sub">&lt;p&gt; Java Developer / Microservices Enthusiast &lt;/p&gt;</div>
+    <button class="btn-contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact me!</button>
+    <svg class="attractor" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="attractorPaths"></g>
+    </svg>
+    <div class="scroll-hint"><span>scroll down</span><span class="scroll-arrow">↓</span></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-title">// 01 — sobre mim</div>
+    <p class="about-text">
+      Sou <strong>Felipe Dias</strong>, desenvolvedor Back-End Java Júnior de <strong>Paraguaçu Paulista – SP</strong>.
+      Apaixonado por construir sistemas robustos e escaláveis, com foco em <strong>Java, Spring Boot e Microserviços</strong>.
+      Estou cursando <strong>Bacharelado em Ciências da Computação (Unopar)</strong> e em constante evolução —
+      estudando AWS, Angular, Kubernetes e boas práticas de arquitetura.<br><br>
+      Passei pelo <strong>Exército Brasileiro</strong>, onde desenvolvi disciplina, liderança e tomada de decisão sob pressão.
+      Tenho mentalidade de <strong>aprendizado contínuo</strong> e gosto de transformar conhecimento em soluções reais.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-title">// 02 — habilidades</div>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-title">// 03 — projetos</div>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-title">// 04 — experiência</div>
+    <div id="expList"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sec-title">// 05 — contato</div>
+    <h2 class="contact-big">Vamos <span style="color:var(--cyan)">trabalhar</span><br>juntos?</h2>
+    <div class="contact-sub">felipebdias245@gmail.com · (18) 99619-6125</div>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:felipebdias245@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        EMAIL
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/felipe-batista-francisco-dias-2491602a5/" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LINKEDIN
+      </a>
+      <a class="contact-link" href="https://github.com/FelipeBatista9075" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GITHUB
+      </a>
+      <a class="contact-link" href="https://www.twitch.tv/feelpsziin" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+        TWITCH
+      </a>
+      <a class="contact-link" href="https://www.instagram.com/felipebatista_90" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        INSTAGRAM
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const sections=document.querySelectorAll('section');
+const navLinks=document.querySelectorAll('nav a');
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector(`nav a[href="#${e.target.id}"]`);if(a)a.classList.add('active')}})},{threshold:0.4});
+sections.forEach(s=>observer.observe(s));
+navLinks.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})}));
+
+(function(){
+  const g=document.getElementById('attractorPaths');
+  const colors=['#ff2d78','#00e5c8','#ff6aaa'];
+  for(let c=0;c<3;c++){
+    let pts=[],x=0.1+c*0.3,y=0+c*0.2,z=0+c*0.1;
+    const dt=0.005,a=10,b=28,r=8/3,N=4000;
+    for(let i=0;i<N;i++){const dx=a*(y-x),dy=x*(b-z)-y,dz=x*y-r*z;x+=dx*dt;y+=dy*dt;z+=dz*dt;const px=x*7+250,py=z*6.5+30;pts.push(`${i===0?'M':'L'}${px.toFixed(1)},${py.toFixed(1)}`)}
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',pts.join(' '));path.setAttribute('stroke',colors[c]);path.setAttribute('stroke-width',c===0?'1.2':'0.7');path.setAttribute('fill','none');path.setAttribute('opacity',c===0?'0.9':'0.5');g.appendChild(path);
+  }
+})();
+
+const skills=[{name:'Java',pct:85},{name:'Spring Boot',pct:80},{name:'Microservices',pct:75},{name:'Docker',pct:70},{name:'RabbitMQ',pct:65},{name:'MySQL / PostgreSQL',pct:72},{name:'JPA / Hibernate',pct:75},{name:'JUnit / Mockito',pct:65},{name:'Angular',pct:50},{name:'AWS',pct:40},{name:'Kubernetes',pct:35},{name:'HTML & CSS',pct:60}];
+const sg=document.getElementById('skillsGrid');
+skills.forEach(s=>{const div=document.createElement('div');div.className='skill-card';div.innerHTML=`<div class="skill-name">${s.name}</div><div class="skill-bar-bg"><div class="skill-bar" style="width:0%" data-w="${s.pct}%"></div></div>`;sg.appendChild(div)});
+setTimeout(()=>{document.querySelectorAll('.skill-bar').forEach(b=>b.style.width=b.dataset.w)},200);
+
+const projects=[{name:'MovieFlix',desc:'Plataforma de streaming com auth JWT, controle de acesso por perfil e APIs RESTful.',tags:['Java','Spring Boot','JWT','MySQL','JPA']},{name:'user_mail_sender',desc:'Microserviço de envio de e-mails assíncrono via RabbitMQ com Producer/Consumer pattern.',tags:['Java 17','Spring Boot','RabbitMQ','Docker','JUnit']},{name:'EventMark',desc:'Sistema de gerenciamento de eventos com Clean Architecture, domínio rico e API REST.',tags:['Java 17','Spring Boot','JPA','Docker','Clean Arch']}];
+const pg=document.getElementById('projectsGrid');
+projects.forEach(p=>{const div=document.createElement('div');div.className='project-card';div.innerHTML=`<div class="project-name">${p.name}</div><div class="project-desc">${p.desc}</div><div class="tech-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;pg.appendChild(div)});
+
+const exps=[{date:'04/2024 — atual',role:'Empacotador',company:'COMPRE CENTER',bullets:['Trabalho em equipe e boa comunicação','Adaptabilidade para tarefas variadas','Proatividade e colaboração']},{date:'03/2023 — 10/2023',role:'Cabo',company:'EXÉRCITO BRASILEIRO',bullets:['Liderança e espírito de equipe','Tomada de decisão sob pressão','Disciplina e responsabilidade','Honra ao Mérito']}];
+const el=document.getElementById('expList');
+exps.forEach(e=>{const div=document.createElement('div');div.className='exp-item';div.innerHTML=`<div class="exp-date">${e.date}</div><div><div class="exp-role">${e.role}</div><div class="exp-company">${e.company}</div><ul class="exp-bullets">${e.bullets.map(b=>`<li>${b}</li>`).join('')}</ul></div>`;el.appendChild(div)});
+</script>
+</body>
+</html>
